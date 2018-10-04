@@ -47,8 +47,12 @@ router.post('/new', (ctx, next) => {
 		!ctx.request.body.name ||
 		!ctx.request.body.author
 	) {
-		ctx.response.status = 400;
-		ctx.body = 'Please enter the data';
+		
+	ctx.response.status = 400;
+		ctx.body = {
+			status: 'error',
+			message: 'Please enter the data';
+    }
 	} else {
 		let newBook = books.push({
 			id: ctx.request.body.id,
