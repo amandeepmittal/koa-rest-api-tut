@@ -14,7 +14,10 @@ let books = [
 
 // Routes will go here
 router.get('/', (ctx, next) => {
-	ctx.body = books;
+	ctx.body = {
+		status: 'success',
+		message: books
+	};
 	next();
 });
 
@@ -29,7 +32,10 @@ router.get('/:id', (ctx, next) => {
 		ctx.body = getCurrentBook[0];
 	} else {
 		ctx.response.status = 404;
-		ctx.body = 'Book Not Found';
+		ctx.body = {
+			status: 'error!',
+			message: 'Book Not Found with that id!'
+		};
 	}
 	next();
 });
@@ -49,10 +55,13 @@ router.post('/new', (ctx, next) => {
 			name: ctx.request.body.name,
 			author: ctx.request.body.author
 		});
-
-		ctx.body = `New book added with id: ${ctx.request.body.id} & name: ${
-			ctx.request.body.name
-		}`;
+		ctx.response.status = 201;
+		ctx.body = {
+			status: 'success',
+			message: `New book added with id: ${ctx.request.body.id} & name: ${
+				ctx.request.body.name
+			}`
+		};
 	}
 	next();
 });
